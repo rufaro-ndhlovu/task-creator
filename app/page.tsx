@@ -1,7 +1,17 @@
+import React from 'react';
+import TaskCreator from './taskCreator/page';
+
 export const metadata = {
   title: "Task Creator",
 };
 
-export default function Page() {
-  return <h1>Create A Task</h1>;
+export default function App() {
+    
+    
+
+  return (
+    <div>
+      <TaskCreator />
+    </div>
+  )
 }

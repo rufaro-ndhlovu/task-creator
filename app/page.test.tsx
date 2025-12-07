@@ -2,9 +2,9 @@
  * @jest-environment jsdom
  */
 import { render, screen } from "@testing-library/react";
-import Page from "./page";
+import App from "./page";
 
 it("App Router: Works with Server Components", () => {
-  render(<Page />);
+  render(<App />);
   expect(screen.getByRole("heading")).toHaveTextContent("Create A Task");
 });
