@@ -4,6 +4,7 @@ import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
+import Styles from './page.module.css';
 
 import { supabase } from "../utils/supabase";
 import GetTasks from "app/components/taskList";
@@ -50,8 +51,8 @@ export default function TaskCreator() {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className={Styles.glasscontainer}>
+      <form onSubmit={handleSubmit} >
         <label htmlFor="title">Title: </label>
         <input
           type="text"

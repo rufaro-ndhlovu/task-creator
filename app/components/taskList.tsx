@@ -20,13 +20,25 @@ export default function GetTasks({task , setTask}) {
   }, []);
 
   return (
-    <div>
-      <h2>Tasks List</h2>
-      <ul>
-        {task.map((value) => (
-          <li key={value.id}>{value.title} {value.description} {value.status} {new Date(value.duedate_time).toLocaleString("en-GB")}</li> // render title
+       <table border={1} cellPadding={5} style={{ borderCollapse: "collapse", width: "100%" }}>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th>Due Date & Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {task.map((t) => (
+          <tr key={t.id}>
+            <td>{t.title}</td>
+            <td>{t.description}</td>
+            <td>{t.status}</td>
+            <td>{new Date(t.duedate_time).toLocaleString()}</td>
+          </tr>
         ))}
-      </ul>
-    </div>
+      </tbody>
+    </table>
   );
 }
