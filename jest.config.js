@@ -13,7 +13,7 @@ const customJestConfig = {
     "^.+\\.(js|jsx|ts|tsx)$": "babel-jest",
   },
   transformIgnorePatterns: [
-    "/node_modules/(?!(react-datetime-picker|react-clock|react-calendar)/)"
+    "/node_modules/(?!react-datetime-picker|react-calendar|react-clock)/",
   ],
 };
 

@@ -35,8 +35,14 @@ export default function TaskCreator() {
       if (error) {
         throw error;
       }
+
       fetchData();
       setFeedback("Form submitted successfully");
+      setTitle("");
+      setDescription("");
+      setStatus("");
+      setDueDateTime("");
+
     } catch (error) {
       console.log("Error occurred", { error });
       setFeedback("An error occurred");
