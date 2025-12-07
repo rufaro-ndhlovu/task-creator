@@ -8,23 +8,34 @@ import "react-clock/dist/Clock.css";
 import { supabase } from "../utils/supabase";
 import GetTasks from "app/components/taskList";
 
-
 export default function TaskCreator() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("");
   const [dueDateTime, setDueDateTime] = useState("");
   const [feedback, setFeedback] = useState("");
+  const [tasks, setTasks] = useState([]);
+
+  const fetchData = async () => {
+    const { data, error } = await supabase.from("tasks").select("*");
+    if (error) {
+      console.log("Error fetching tasks:", error);
+    } else {
+      setTasks(data);
+    }
+  };
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const values = { title, description, status, duedate_time: dueDateTime  };
+    const values = { title, description, status, duedate_time: dueDateTime };
     try {
-      const {data,  error } = await supabase.from("tasks").insert([values]);
+      const { data, error } = await supabase.from("tasks").insert([values]);
+
       if (error) {
         throw error;
       }
+      fetchData();
       setFeedback("Form submitted successfully");
     } catch (error) {
       console.log("Error occurred", { error });
@@ -34,8 +45,6 @@ export default function TaskCreator() {
 
   return (
     <div>
-      
-
       <form onSubmit={handleSubmit}>
         <label htmlFor="title">Title: </label>
         <input
@@ -44,6 +53,7 @@ export default function TaskCreator() {
           name="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          required
         />
         <br />
         <br />
@@ -65,6 +75,7 @@ export default function TaskCreator() {
           id="status"
           value={status}
           onChange={(e) => setStatus(e.target.value)}
+          required
         >
           <option value="">Select status</option>
           <option value="Pending">Pending</option>
@@ -91,7 +102,7 @@ export default function TaskCreator() {
       <br />
       <br />
 
-      <GetTasks />
+      <GetTasks task={tasks} setTask={setTasks} />
     </div>
   );
 }

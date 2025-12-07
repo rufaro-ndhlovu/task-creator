@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabase";
 
-export default function GetTasks() {
-  const [tasks, setTasks] = useState([]);
+export default function GetTasks({task , setTask}) {
+  
 
   useEffect(() => {
     async function fetchTasks() {
@@ -12,7 +12,7 @@ export default function GetTasks() {
       if (error) {
         console.log("Error fetching tasks:", error);
       } else {
-        setTasks(data);
+        setTask(data);
       }
     }
 
@@ -23,8 +23,8 @@ export default function GetTasks() {
     <div>
       <h2>Tasks List</h2>
       <ul>
-        {tasks.map((task) => (
-          <li key={task.id}>{task.title} {task.description} {task.status} {task.duedate_time}</li> // render title
+        {task.map((value) => (
+          <li key={value.id}>{value.title} {value.description} {value.status} {new Date(value.duedate_time).toLocaleString("en-GB")}</li> // render title
         ))}
       </ul>
     </div>
