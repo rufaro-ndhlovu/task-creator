@@ -1,22 +1,24 @@
 "use client";
 import React, { useState } from "react";
 import DateTimePicker from "react-datetime-picker";
-import "react-datetime-picker/dist/DateTimePicker.css";
+import "react-datetime-picker/dist/DateTimePicker.css"; // For selecting date and time
 import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
-import Styles from './page.module.css';
+import Styles from "./page.module.css";
 
-import { supabase } from "../utils/supabase";
-import GetTasks from "app/components/taskList";
+import { supabase } from "../utils/supabase"; // Supabase client for database operations
+import GetTasks from "app/components/taskList"; // Component to display task list
 
 export default function TaskCreator() {
+  // Form state
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("");
   const [dueDateTime, setDueDateTime] = useState("");
-  const [feedback, setFeedback] = useState("");
-  const [tasks, setTasks] = useState([]);
+  const [feedback, setFeedback] = useState(""); // Feedback message after submission
+  const [tasks, setTasks] = useState([]); // Tasks fetched from database
 
+  // Function to fetch all tasks from Supabase
   const fetchData = async () => {
     const { data, error } = await supabase.from("tasks").select("*");
     if (error) {
@@ -26,33 +28,41 @@ export default function TaskCreator() {
     }
   };
 
+  // Form submission handler
   async function handleSubmit(e) {
-    e.preventDefault();
+    e.preventDefault(); // Prevent page reload on submit
 
     const values = { title, description, status, duedate_time: dueDateTime };
     try {
+      // Insert new task into Supabase
       const { data, error } = await supabase.from("tasks").insert([values]);
 
       if (error) {
         throw error;
       }
 
+      // Refresh task list after successful insert
       fetchData();
       setFeedback("Form submitted successfully");
+
+      // Reset form fields
       setTitle("");
       setDescription("");
       setStatus("");
       setDueDateTime("");
-
     } catch (error) {
       console.log("Error occurred", { error });
-      setFeedback("An error occurred");
+      setFeedback("An error occurred"); // Show error feedback
     }
   }
 
   return (
     <div className={Styles.glasscontainer}>
-      <form onSubmit={handleSubmit} >
+      {/* Form container with glassmorphism effect */}
+      <form onSubmit={handleSubmit}>
+        {/* Form for creating tasks */}
+
+        {/* Title field */}
         <label htmlFor="title">Title: </label>
         <input
           type="text"
@@ -65,6 +75,7 @@ export default function TaskCreator() {
         <br />
         <br />
 
+        {/* Description field */}
         <label htmlFor="description">Description: </label>
         <input
           type="text"
@@ -76,6 +87,7 @@ export default function TaskCreator() {
         <br />
         <br />
 
+        {/* Status dropdown */}
         <label htmlFor="status">Status: </label>
         <select
           name="status"
@@ -92,6 +104,7 @@ export default function TaskCreator() {
         <br />
         <br />
 
+        {/* Date & time picker */}
         <label htmlFor="datepiker">Select A Date And Time: </label>
         <DateTimePicker
           onChange={(data) => setDueDateTime(data)}
@@ -105,10 +118,12 @@ export default function TaskCreator() {
         <input type="submit" value="Submit" />
       </form>
       <br />
+      {/* Feedback message */}
       {feedback}
       <br />
       <br />
 
+      {/* Task list display */}
       <GetTasks task={tasks} setTask={setTasks} />
     </div>
   );
