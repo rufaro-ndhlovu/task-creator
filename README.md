@@ -1,43 +1,90 @@
-# Next.js + Jest
+# HMCTS Task Tracker
 
-This example shows how to configure Jest to work with Next.js.
+## Overview
 
-This includes Next.js' built-in support for Global CSS, CSS Modules and TypeScript. This example also shows how to use Jest with the App Router and React Server Components.
+HMCTS Task Tracker is a simple web application for caseworkers to manage tasks efficiently. Users can create tasks with a title, optional description, status, and due date/time, receive a confirmation message, and view all tasks in a responsive table.  
 
-> **Note:** Since tests can be co-located alongside other files inside the App Router, we have placed those tests in `app/` to demonstrate this behavior (which is different than `pages/`). You can still place all tests in `__tests__` if you prefer.
+This project demonstrates full-stack development skills, including React frontend development, API integration with Supabase (PostgreSQL), form validation, error handling, and unit testing.
 
-## Deploy your own
+---
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-jest&project-name=with-jest&repository-name=with-jest)
+## Features
 
-## How to Use
+- **Create Tasks:** Add new tasks with title, optional description, status, and due date/time.  
+- **Feedback Messages:** Users receive confirmation after successfully creating a task.  
+- **Task Table:** View all tasks in a clean, responsive table.  
+- **Validation & Error Handling:** Required fields enforced; API errors are handled gracefully.  
+- **Unit Testing:** Frontend tests included using Jest and React Testing Library.  
+- **UI/UX:** Modern design with gradient background and glassmorphism effects for forms and tables.
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+---
 
-```bash
-npx create-next-app --example with-jest with-jest-app
+## Technology Stack
+
+- **Frontend:** React, Next.js, `react-datetime-picker`  
+- **Backend / Database:** Supabase (PostgreSQL)  
+- **Testing:** Jest, React Testing Library  
+- **Styling:** CSS with gradient background and glassmorphism effects  
+
+---
+
+## API Endpoints
+
+| Endpoint  | Method | Description         | Request Body                                   |
+|-----------|--------|-------------------|-----------------------------------------------|
+| `/tasks`  | POST   | Create a new task  | `{ title, description, status, duedate_time }` |
+| `/tasks`  | GET    | Retrieve all tasks | None                                          |
+
+**Example Response (POST `/tasks`):**
+
+```json
+{
+  "id": 1,
+  "title": "Sample Task",
+  "description": "This is a test",
+  "status": "Pending",
+  "duedate_time": "2025-12-07T10:00:00Z"
+}
+
 ```
-
-```bash
-yarn create next-app --example with-jest with-jest-app
-```
-
-```bash
-pnpm create next-app --example with-jest with-jest-app
-```
+---
 
 ## Running Tests
 
-```bash
-npm test
-```
+To run frontend tests with Jest and React Testing Library:
+
+npm run test
+
+---
+
+## Getting Started
+
+1. **Clone the repository:**
 
 ```bash
-yarn test
-```
+git clone <your-repo-url>
+cd <repo-folder>
 
-```bash
-pnpm test
-```
+---
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+2. **Install dependencies:**
+
+npm install
+
+---
+
+3. **Set up environment variables:**
+
+Create a .env.local file with your Supabase credentials:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=<your-supabase-url>
+NEXT_PUBLIC_SUPABASE_KEY=<your-supabase-key>
+
+---
+
+4. **Run the development server:**
+
+npm run dev
+
+
