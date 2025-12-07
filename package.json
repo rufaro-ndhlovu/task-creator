@@ -8,10 +8,13 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.86.2",
+    "formik": "^2.4.9",
     "next": "latest",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "server-only": "^0.0.1"
+    "server-only": "^0.0.1",
+    "yup": "^1.7.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "6.1.5",
