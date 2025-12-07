@@ -64,7 +64,7 @@ npm run test
 ```bash
 git clone <your-repo-url>
 cd <repo-folder>
-
+```
 ---
 
 2. **Install dependencies:**
@@ -80,7 +80,7 @@ Create a .env.local file with your Supabase credentials:
 ```env
 NEXT_PUBLIC_SUPABASE_URL=<your-supabase-url>
 NEXT_PUBLIC_SUPABASE_KEY=<your-supabase-key>
-
+```
 ---
 
 4. **Run the development server:**
